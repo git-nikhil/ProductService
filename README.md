@@ -1,0 +1,1 @@
+This is a Product service implemented using FakeStore(https://fakestoreapi.com/). I have created controller and service class and implemented getSingleProduct,getAllproducts and createProduct methods.
