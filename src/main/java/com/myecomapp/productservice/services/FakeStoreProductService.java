@@ -6,6 +6,7 @@ import com.myecomapp.productservice.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class FakeStoreProductService implements ProductService {
@@ -15,7 +16,15 @@ public class FakeStoreProductService implements ProductService {
     }
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        List<Product> products = new ArrayList<>();
+        FakeStoreProductDto[] product = restTemplate.getForObject("https://fakestoreapi.com/products",
+                FakeStoreProductDto[].class);
+        assert product != null;
+        for (FakeStoreProductDto fakeStoreProductDto : product) {
+            Product product1 = fakeStoreProductDto.toProduct();
+            products.add(product1);
+        }
+        return products;
     }
 
     @Override
@@ -28,6 +37,11 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product createProduct(CreateProductRequestDto product) {
-        return null;
+        FakeStoreProductDto fakeStoreProductDto = product.toFakeStoreProductDto();
+        FakeStoreProductDto product1 = restTemplate.postForObject("https://fakestoreapi.com/products",
+                fakeStoreProductDto,
+                FakeStoreProductDto.class);
+        assert product1 != null;
+        return product1.toProduct();
     }
 }

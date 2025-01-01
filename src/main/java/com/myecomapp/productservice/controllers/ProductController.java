@@ -10,6 +10,11 @@ import java.util.List;
 @RestController
 public class ProductController {
     private final ProductService productService;
+//    private CreateProductRequestDto createProductRequestDto;
+//    ProductController(ProductService productService, CreateProductRequestDto createProductRequestDto) {
+//        this.productService = productService;
+//        this.createProductRequestDto = createProductRequestDto;
+//    }
     ProductController(ProductService productService) {
         this.productService = productService;
     }
